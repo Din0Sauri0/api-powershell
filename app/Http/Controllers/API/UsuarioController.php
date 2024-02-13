@@ -24,13 +24,12 @@ class UsuarioController extends Controller
     {
         try{
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                // Recibir los datos del formulario HTML
-                $admin_user = $_POST["admin_user"];
-                $admin_pass = $_POST["admin_pass"];
-                $ip = $_POST["ip"];
-                $target_user = $_POST["target_user"];
-                $new_pass = $_POST["new_pass"];
+            if($request->validated()){
+                $admin_user = $request->admin_user;
+                $admin_pass = $request->admin_password;
+                $ip = $request->host;
+                $target_user = $request->user;
+                $new_pass = $request->password;
 
                 // Escapar los argumentos del shell
                 $admin_user = escapeshellarg($admin_user);
@@ -53,15 +52,11 @@ class UsuarioController extends Controller
                 $output = shell_exec($command);
 
                 // Mostrar la salida
-                echo "<pre>$output</pre>";
-
-            }
-
-
-            if($request->validated()){
+                // echo "<pre>$output</pre>";
                 return response()->json([
                     'res' => true,
-                    'msg' => 'Password actualizada'
+                    'msg' => 'Password actualizada',
+                    'resultado_consola' => $output
                 ], 200);
             }
         }catch(Throwable $err){

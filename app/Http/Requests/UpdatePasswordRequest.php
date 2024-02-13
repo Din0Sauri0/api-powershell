@@ -22,6 +22,8 @@ class UpdatePasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
+            "admin_user" => "required",
+            "admin_password" => "required",
             "user" => "required|min:3",
             "password" => "required",
             "host" => "required"
