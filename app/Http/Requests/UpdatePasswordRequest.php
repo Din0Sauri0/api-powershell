@@ -23,10 +23,10 @@ class UpdatePasswordRequest extends FormRequest
     {
         return [
             "admin_user" => "required",
-            "admin_password" => "required",
-            "user" => "required|min:3",
-            "password" => "required",
-            "host" => "required"
+            "admin_pass" => "required",
+            "target_user" => "required|min:3",
+            "new_pass" => "required",
+            "ip" => "required"
         ];
     }
 }
